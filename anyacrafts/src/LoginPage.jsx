@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import emailjs from 'emailjs-com';
 import './stylelogin.css'; 
 
 const firebaseConfig = {
@@ -22,13 +23,14 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
-
 const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
+    const [isTermsChecked, setIsTermsChecked] = useState(false); // Checkbox state
+    const [showTermsModal, setShowTermsModal] = useState(false); // Modal state
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -44,9 +46,38 @@ const LoginPage = () => {
         }
     };
 
+    const sendEmail = (email, fullname) => {
+        const serviceID = 'service_2q98lcs';
+        const templateID = 'template_kld1ggr';
+        const userID = 'wfeU7qRWckiwTYpcn';
+
+        const templateParams = {
+            user_name: fullname,
+            user_email: email
+        };
+
+        emailjs.send(serviceID, templateID, templateParams, userID)
+    .then((response) => {
+        if (response.status === 200) {
+            alert('Sign-up confirmation email sent!');
+        } else {
+            console.log('Unexpected status: ', response);
+            alert('Failed to send confirmation email.');
+        }
+    }, (error) => {
+        console.error('EmailJS Error:', error);
+        alert('Failed to send confirmation email. Please try again.');
+    });
+    };
+
+    
     const handleSignUp = async (e) => {
         e.preventDefault();
-        setLoading(true); 
+        if (!isTermsChecked) {
+            alert("Please agree to the terms & conditions.");
+            return;
+        }
+        setLoading(true);
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -56,20 +87,23 @@ const LoginPage = () => {
                 email: email
             });
             alert('User signed up successfully!');
-            
+    
+            // Send confirmation email
+            sendEmail(email, fullName);
+    
+            // Clear the form
             setEmail('');
             setPassword('');
             setFullName('');
         } catch (error) {
             alert('Error: ' + error.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
-
     return (
-       <div>
+        <div>
             <header className="header"></header>
             <div className="background"></div>
             <div className="container">
@@ -80,7 +114,7 @@ const LoginPage = () => {
                         <p>
                             Discover the difference at our flower shop, where quality<br />
                             meets creativity. Our high-quality, unique arrangements <br />
-                            to elevate any occasion, reflecting our commitment.
+                            elevate any occasion, reflecting our commitment.
                         </p>
                         <div className="social-icons">
                             <a href="#"><i className='bx bxl-facebook-circle'></i></a>
@@ -90,24 +124,23 @@ const LoginPage = () => {
                     </div>
                 </div>
 
-                <div className={`logreg-box ${!isLogin ? 'active' : ''}`}> 
+                <div className={`logreg-box ${!isLogin ? 'active' : ''}`}>
                     {isLogin ? (
                         <div className="form-box login">
                             <form onSubmit={handleLogin} id="login-form">
                                 <h2>Sign In</h2>
                                 <div className="input-box">
                                     <span className="icon"><i className='bx bxs-envelope'></i></span>
-                                    <input type="email" required id="login-email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
                                     <label>Email</label>
                                 </div>
                                 <div className="input-box">
                                     <span className="icon"><i className='bx bxs-lock-alt'></i></span>
-                                    <input type="password" required id="login-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                    <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                                     <label>Password</label>
                                 </div>
                                 <div className="remember-forgot">
-                                    <label><input type="checkbox" /> Remember me</label>
-                                    <a href="#">Forgot password?</a>
+                                    <a href="#">Forgot password?</a>        
                                 </div>
                                 <button type="submit" className="btn" disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
                                 <div className="login-register">
@@ -121,21 +154,24 @@ const LoginPage = () => {
                                 <h2>Sign Up</h2>
                                 <div className="input-box">
                                     <span className="icon"><i className='bx bxs-user'></i></span>
-                                    <input type="text" required id="fullname" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                                    <input type="text" required value={fullName} onChange={(e) => setFullName(e.target.value)} />
                                     <label>Name</label>
                                 </div>
                                 <div className="input-box">
                                     <span className="icon"><i className='bx bxs-envelope'></i></span>
-                                    <input type="email" required id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
                                     <label>Email</label>
                                 </div>
                                 <div className="input-box">
                                     <span className="icon"><i className='bx bxs-lock-alt'></i></span>
-                                    <input type="password" required id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                    <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                                     <label>Password</label>
                                 </div>
-                                <div className="remember-forgot">
-                                    <label><input type="checkbox" /><a href="#">I agree to the terms & conditions</a></label>
+                                <div className="termscondition">
+                                    <label>
+                                        <input type="checkbox" checked={isTermsChecked} onChange={(e) => setIsTermsChecked(e.target.checked)} />
+                                        I agree to the <a href="#" onClick={() => setShowTermsModal(true)}>terms & conditions</a>
+                                    </label>
                                 </div>
                                 <button type="submit" className="btn" disabled={loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
                                 <div className="login-register">
@@ -145,9 +181,21 @@ const LoginPage = () => {
                         </div>
                     )}
                 </div>
+                    {/* Modal for Terms & Conditions */}
+                {showTermsModal && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <h3>Terms and Conditions</h3>
+                            <p>Here are the terms and conditions of using our service...</p>
+                            <button onClick={() => setShowTermsModal(false)}>Close</button>
+                        </div>
+                    </div>
+                )}
+                
             </div>
+
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
-    </div>
+        </div>
     );
 };
 
