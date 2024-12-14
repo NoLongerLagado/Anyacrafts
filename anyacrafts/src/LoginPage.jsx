@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, database } from './firebaseconfig';  
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";  
 import { ref, set } from "firebase/database";  
@@ -15,19 +15,22 @@ const LoginPage = () => {
     const [isTermsChecked, setIsTermsChecked] = useState(false); 
     const [showTermsModal, setShowTermsModal] = useState(false); 
 
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
     const handleLogin = async (e) => {
         e.preventDefault();
-        setLoading(true); 
+        setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            alert('User signed in successfully!');
-            window.location.href = '../main/MainPage.jsx';
+            console.log('Navigating to /main-page');
+            navigate('/main-page'); // Check this in the console
         } catch (error) {
             alert('Error: ' + error.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
+    
 
     const sendEmail = (email, fullname) => {
         const serviceID = 'service_2q98lcs';
