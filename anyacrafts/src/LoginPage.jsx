@@ -1,27 +1,10 @@
 import React, { useState } from 'react';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set } from "firebase/database";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { Link } from 'react-router-dom';
+import { auth, database } from './firebaseconfig';  
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";  
+import { ref, set } from "firebase/database";  
 import emailjs from 'emailjs-com';
-import './stylelogin.css'; 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB-CUWSirtX8mYiN5Vnnw1i6lE-2pR70zE",
-  authDomain: "anyauserlogin.firebaseapp.com",
-  databaseURL: "https://anyauserlogin-default-rtdb.firebaseio.com",
-  projectId: "anyauserlogin",
-  storageBucket: "anyauserlogin.appspot.com",
-  messagingSenderId: "517177106831",
-  appId: "1:517177106831:web:30277b80f7059b4eedebfa",
-  measurementId: "G-QGL1QPJHQJ"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const database = getDatabase(app);
-const auth = getAuth(app);
+import './styles/stylelogin.css';
 
 const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -29,8 +12,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isTermsChecked, setIsTermsChecked] = useState(false); // Checkbox state
-    const [showTermsModal, setShowTermsModal] = useState(false); // Modal state
+    const [isTermsChecked, setIsTermsChecked] = useState(false); 
+    const [showTermsModal, setShowTermsModal] = useState(false); 
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -38,7 +21,7 @@ const LoginPage = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             alert('User signed in successfully!');
-            window.location.href = 'userprofileindex.html';
+            window.location.href = '../main/MainPage.jsx';
         } catch (error) {
             alert('Error: ' + error.message);
         } finally {
@@ -88,10 +71,10 @@ const LoginPage = () => {
             });
             alert('User signed up successfully!');
     
-            // Send confirmation email
+           
             sendEmail(email, fullName);
     
-            // Clear the form
+            
             setEmail('');
             setPassword('');
             setFullName('');
@@ -140,9 +123,10 @@ const LoginPage = () => {
                                     <label>Password</label>
                                 </div>
                                 <div className="remember-forgot">
-                                    <a href="#">Forgot password?</a>        
+                                    
+                                    <Link to="/forgot-password">Forgot password?</Link>        
                                 </div>
-                                <button type="submit" className="btn" disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
+                                <button type="submit" className="login-btn" disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
                                 <div className="login-register">
                                     <p>Don't have an account? <a href="#" className="register-link" onClick={() => setIsLogin(false)}>Sign Up</a></p>
                                 </div>
@@ -173,7 +157,7 @@ const LoginPage = () => {
                                         I agree to the <a href="#" onClick={() => setShowTermsModal(true)}>terms & conditions</a>
                                     </label>
                                 </div>
-                                <button type="submit" className="btn" disabled={loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
+                                <button type="submit" className="login-btn" disabled={loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
                                 <div className="login-register">
                                     <p>Already have an account? <a href="#" className="login-link" onClick={() => setIsLogin(true)}>Sign In</a></p>
                                 </div>
@@ -181,12 +165,12 @@ const LoginPage = () => {
                         </div>
                     )}
                 </div>
-                    {/* Modal for Terms & Conditions */}
+                   
                 {showTermsModal && (
                     <div className="modal">
                         <div className="modal-content">
                             <h3>Terms and Conditions</h3>
-                            <p>Here are the terms and conditions of using our service...</p>
+                            <p>lalagyan to pag meron ng terms and conditions</p>
                             <button onClick={() => setShowTermsModal(false)}>Close</button>
                         </div>
                     </div>

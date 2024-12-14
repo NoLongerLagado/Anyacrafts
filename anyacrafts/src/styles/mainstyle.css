@@ -1,0 +1,909 @@
+:root{
+    --pink:#e84393;
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden;
+}
+
+section{
+    padding:2rem 9%;
+}
+.heading{
+    text-align: center;
+    font-size: 4rem;
+    color: #333;
+    padding:1rem;
+    margin:2rem 0;
+    background: rgba(255, 51, 153, .05);
+}
+
+.heading span{
+    color:var(--pink);
+}
+
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    background: #333;
+    color: #fff;
+    padding: .9rem 3.5rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+.btn:hover{
+    background: var(--pink);
+}
+
+header{
+    position: fixed;
+    top:0; left:0; right:0;
+    background: #ffff;
+    padding: 2rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);   
+}
+
+header .logo{
+    font-size: 3rem;
+    color: #333;
+    font-weight: bolder;
+}
+
+header .logo span{
+    color:var(--pink);
+}
+
+header .navbar a{
+    font-size: 1.5rem;
+    padding:0 1.5rem;
+    color: #666;
+    cursor: pointer; /* Hand pointer on hover */
+    text-decoration: none; /* Removes underline by default */
+}
+
+
+header .navbar a:hover {
+    color: var(--pink); /* Change color on hover */
+    text-decoration: underline; /* Optional hover effect */
+}
+
+header .icons a{
+    font-size: 2rem;
+    color: #333;
+    margin-left: 1.5rem;
+}
+
+header .icons a:hover{
+    color:var(--pink);
+}
+
+header #toggler{
+    display: none;
+}
+
+header .fa-bars{
+    font-size: 3rem;
+    color: #333;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0,0,0,.3);
+    display: none;
+}
+
+
+.home{
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background:url(../assets/flowers-background-copy-space.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.home .content{
+    max-width: 50rem;
+}
+
+.home .content h3{
+    font-size: 6rem;
+    color: #333;
+}
+
+.home .content span{
+    font-size: 3.5rem;
+    color:var(--pink);
+    padding:1rem 0;
+    line-height: 1.5;
+}
+
+.home .content p{
+    font-size: 1.5rem;
+    color: #999;
+    padding:1rem 0;
+    line-height: 1.5;
+}
+
+.about {
+    background-color: #fff;
+}
+
+.about .row{
+    display: flex;
+    align-items: center;
+    gap:2rem;
+    flex-wrap: wrap;
+    padding:2rem 0;
+    padding-bottom: 3rem;
+}
+
+.about .row .video-container{
+    flex:1 1 40rem;
+    position: relative;
+}
+
+.about .row .video-container video{
+    width: 100%;
+    border: 1.5rem solid #fff;
+    border-radius:  .5rem;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    height:100%;
+    object-fit: cover;
+}
+
+.about .row .video-container h3{
+    position: absolute;
+    top:50%; transform: translateY(-50%);
+    font-size: 3rem;
+    color: #333;
+    background: #fff;
+    width: 100%;
+    padding:1rem 2rem;
+    text-align: center;
+    mix-blend-mode: screen;
+}
+
+.about .row .content{
+    flex:1 1 40rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color:#333;
+}
+
+.about .row .content p{
+    font-size: 1.5rem;
+    color: #999;
+    padding: .5rem 0;
+    padding-top: 1rem;
+    line-height: 1.5;
+}
+
+.icons-container{
+    background: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.icons-container .icons{
+    background: #fff;
+    border:.1rem solid rgba(0,0,0,.1);
+    padding:2rem;
+    display: flex;
+    align-items: center;
+    flex:1 1 20rem;
+}
+
+.icons-container .icons img{
+    height: 5rem;
+    margin-right: 2rem;
+}
+
+.icons-container .icons h3{
+    color: #333;
+    padding-bottom: .5rem;
+    font-size: 1.5rem;
+}
+
+.icons-container .icons span{
+    color: #555;
+    font-size: 1.3rem;
+}
+
+.products {
+    background-color: #fff;
+}
+
+/* Container for products */
+.products .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+}
+
+.products .box-container .box {
+    flex: 1 1 30rem;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    border: .1rem solid rgba(0, 0, 0, .1);
+    position: relative;
+}
+
+/* Styling for discount label */
+.products .box-container .box .discount {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: .7rem 1rem;
+    font-size: 2rem;
+    color: var(--pink);
+    background: rgba(255, 51, 153, .05);
+    z-index: 1;
+    border-radius: .5rem;
+}
+
+/* Image styling */
+.products .box-container .box .image {
+    position: relative;
+    text-align: center;
+    padding-top: 2rem;
+    overflow: hidden;
+}
+
+.products .box-container .box .image img {
+    height: 25rem;
+    transition: transform 0.3s ease;
+}
+
+.products .box-container .box:hover .image img {
+    transform: scale(1.1);
+}
+
+.products .box-container .box .image .icons {
+    position: absolute;
+    bottom: -7rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    transition: bottom 0.3s ease;
+    pointer-events: none; /* Prevents hover loss */
+}
+
+.products .box-container .box:hover .image .icons {
+    bottom: 0;
+    pointer-events: auto; /* Re-enable interactions */
+}
+
+/* Button styling */
+.products .box-container .box .image .icons a {
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 1.5rem;
+    width: 50%;
+    color: #fff;
+    transition: background 0.3s ease;
+}
+
+.products .box-container .box .image .icons .cart-btn {
+    background: var(--pink);
+    color: #fff;
+    height: 6rem;
+    width: 100%;
+    font-size: 1.6rem;
+    line-height: 6rem;
+    transition: background 0.3s ease, color 0.3s ease;
+    pointer-events: auto; /* Ensures button remains clickable */
+}
+
+.products .box-container .box:hover .image .icons .cart-btn {
+    background: #e84393 /* Custom color for button hover */
+}
+
+.products .box-container .box .image .icons .cart-btn:hover {
+    background: #333; 
+    color: #fff;
+}
+
+/* Content styling */
+.products .box-container .box .content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.products .box-container .box .content h3 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.products .box-container .box .content .price {
+    font-size: 1.5rem;
+    color: var(--pink);
+    font-weight: bolder;
+    padding-top: 1rem;
+}
+
+.products .box-container .box .content .price span {
+    font-size: 1.2rem;
+    color: #999;
+    font-weight: lighter;
+    text-decoration: line-through;
+}
+
+
+ .review .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+
+ }
+  
+ .review .box-container .box{
+     flex:1 1 30rem;
+     box-shadow:0 .5rem 1.5rem rgba(0, 0, 0, .1);
+     border-radius: .5rem;
+     padding:3rem 2rem;
+     position: relative;
+     border:.1rem solid rgba(0, 0, 0, .1)
+ }
+ .review .box-container .box .fa-quote-right{
+position: absolute;
+bottom:3rem; right:3rem;
+font-size: 6rem;
+color:#eee;
+
+ }
+ .review .box-container .box .stars i {
+color:var(--pink);
+font-size: 2rem;
+
+ }
+
+ .review .box-container .box .stars p {
+    color:#999;
+    font-size: 1 5rem;
+    line-height: 2;
+    padding-top: 2rem;
+     }
+ .review .box-container .box .user{
+display: flex;
+align-items: center;
+padding-top: 2rem;
+
+ }
+ 
+ .review .box-container .box .user img {
+    height: 50px; /* You can adjust the height to your desired size */
+    width: 50px;  /* Set a fixed width to ensure a perfect circle */
+    border-radius: 50%; /* This will create a circular shape */
+    object-fit: cover; /* This ensures the image covers the entire circle */
+}
+.review .box-container .box .user h3{
+    font-size: 2rem;
+    color:#333;
+}
+.review .box-container .box .user span{
+    font-size: 1.5rem;
+    color:#999;
+}
+
+.contact .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+
+}
+
+.contact .row form{
+    flex: 1 1 40rem;
+padding: 2rem 2.5rem;
+box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border: 1rem solid rgba(0, 0, 0, .1);
+    background: #fff;
+    border-radius: .5rem;
+}
+.contact .row .image{
+    flex: 1 1 40rem;
+
+    
+}
+
+.contact .row form img{
+    width: 100%;
+
+    
+}
+.contact .row form .box{
+    padding: 1rem;
+    font-size: 1.7rem;
+    color:#333;
+    text-transform: none;
+    border: 1rem solid rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    margin:7rem 0;
+
+
+
+
+} 
+
+.contact .row form .box:focus{
+
+border-color: var(--pink);
+
+}
+.contact .row form textarea{
+
+    height: 15rem;
+    resize: none;
+}
+
+
+
+
+@media (max-width:1030px){
+    html{
+        font-size: 55%;
+    }
+    header{
+        padding:2rem;
+    }
+    header .cart-count {
+        position: absolute; /* Keep absolute positioning for better alignment */
+        top: 2.5rem; /* Adjust as needed */
+        right: 6.5rem; /* Adjust for mobile positioning (this can be closer than 450px) */
+        font-size: 0.9rem; /* Slightly smaller font for larger screens than 450px */
+        margin-top: 0; /* Reset any extra margin */
+        margin-right: 0; /* Reset margin */
+        padding: 0.2rem 0.4rem; /* Smaller padding */
+        min-width: 1.4rem; /* Adjust to ensure it fits the text */
+        height: 1.4rem; /* Slightly increased height for better touch targets */
+    }
+    section{
+        padding:2rem;
+    }
+    .home{
+        background-position: left;
+    }
+    
+}
+
+
+
+
+
+@media (max-width:768px){
+
+    html .fa-bars{
+        display: block;
+    }
+
+    header .navbar{
+        position:absolute;
+        top:100%; left:0; right:0;
+        background: #eee;
+        border-top: .1rem solid rgba(0,0,0,.1);    
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    header #toggler:checked ~ .navbar{
+        clip-path:polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    header .navbar a{
+        margin:1.5rem;
+        padding:1.5rem;
+        background:#fff; 
+        border:.1rem solid rgba(0,0,0,.1);
+        display: block;
+    }
+
+    header .cart-count {
+        position: absolute; /* Keep absolute positioning for better alignment */
+        top: 2.5rem; /* Adjust as needed */
+        right: 6.5rem; /* Adjust for mobile positioning (this can be closer than 450px) */
+        font-size: 0.9rem; /* Slightly smaller font for larger screens than 450px */
+        margin-top: 0; /* Reset any extra margin */
+        margin-right: 0; /* Reset margin */
+        padding: 0.2rem 0.4rem; /* Smaller padding */
+        min-width: 1.4rem; /* Adjust to ensure it fits the text */
+        height: 1.4rem; /* Slightly increased height for better touch targets */
+    }
+
+    .home .content h3{
+        font-size: 5rem;
+    }
+
+    .home .content span{
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width:450px){
+    html{
+        font-size: 50%;
+    }
+
+    .heading{
+        font-size: 3rem;
+    }
+
+   header .cart-count {
+        position: absolute; /* Changing to absolute for better alignment */
+        top: 2.5rem; /* Adjust as needed */
+        right: 7rem; /* Adjust for mobile positioning */
+        font-size: 0.8rem; /* Slightly smaller font for smaller screens */
+        margin-top: 0; /* Reset any extra margin */
+        margin-right: 0; /* Reset margin */
+        padding: 0.2rem 0.4rem; /* Smaller padding */
+        min-width: 1.2rem;
+        height: 1.2rem;
+    }
+    
+}
+/** ------------------------------------------ bago **/
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#confirmationModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ec78d3;
+    padding: 40px; /* Adjust the padding to increase height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    width: 100%;
+    text-align: center;
+}
+
+#confirmationMessage {
+    font-size: 2em;
+    color: rgb(0, 0, 0);
+    
+}
+
+
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    max-width: 80%;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+.form-container {
+    flex: 1 1 60%;
+    
+}
+
+.image-container {
+    flex: 1 1 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1rem; /* Adjust to control the position of the line */
+    width: 0;
+    height: 100%;
+    border-left: 2px solid var(--pink);
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid var(--pink);
+    border-radius: 0.3rem;
+}
+
+#selectedItemImage {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.3rem;
+}
+
+button[type="submit"] {
+    background: #ff00bf;
+    color: #fff;
+}
+
+button[type="button"] {
+    background: #e299c4;
+    color: #ffffff;
+}
+
+#checkoutHeading {
+    text-align: center;
+}
+ 
+
+.cart-icon {
+    position: absolute; /* Ensure this container is positioned relative */
+}
+
+.cart-count {
+    position: fixed; /* Position relative to .cart-icon */
+    top: -0.2rem; /* Adjust top position as needed */
+    right: -4rem; /* Adjust right position as needed */
+    background-color: var(--pink);
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-right: 200px;
+    font-weight: bold;
+    display: relative;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1);
+}
+
+
+*{
+    margin:0; padding:0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+} 
+
+
+
+
+/**  shit **/
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.cart-item img {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.quantity-controls button {
+    background-color: var(--pink);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+}
+
+.quantity-controls button:hover {
+    background-color: #333;
+}
+
+.quantity-controls .quantity-input {
+    width: 3rem;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+
+
+
+
+
+.bottom {
+    text-align: center; /* Center align the links */
+    margin-top: 0; /* Adjust distance from footer */
+    margin-bottom: 10px; /* Remove margin-bottom to bring closer to footer */
+    padding-top: 200px;
+}
+
+.bottom a {
+    display: inline-block; /* Ensure each link is on its own line */
+    font-size: 1rem; /* Font size of 1rem */
+    color: #666; /* Gray color for the links */
+    text-decoration: none; /* Remove underline */
+    margin: 0 10px; /* Adjust margin for spacing between links */
+    padding-bottom: 10px; /* Add padding to create space between links and bottom */
+}
+
+.links {
+    text-align: center; /* Center align the links */
+}
+
+.links a {
+    margin: 0 20px; /* Adjust margin for spacing between links */
+    font-size: 1rem;
+    color: #666; /* Gray color for normal state */
+    text-decoration: none; /* Remove underline from links */
+    justify-content: center;
+}
+
+.links a:hover {
+    color: #ff00bf; /* Pink color on hover */
+}
+
+
+
+
+/* Footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 175px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+footer .logo {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bolder;
+   
+}
+
+footer .logo span {
+    color: var(--pink);
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+    margin-left: 50px; /* Space between paragraph and social media */
+    justify-content: center;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center; /* Center the social media icons horizontally */
+    margin-left: 1450px; /* Adjust margin if necessary */
+    margin-top: 10px; /* Adjust top margin for spacing */
+}
+
+.social-media a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.social-media a:hover {
+    color: #ff00bf;
+}
+
+
+.custom-button-section {
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+    align-items: center; /* Center the button vertically within the section */
+    padding: 20px; /* Add some padding around the section */
+    background-color: #f9f9f9; /* Light background for contrast */
+    margin-top: 20px; /* Space above the custom button section */
+}
+
+.custom-btn {
+    display: inline-block;
+    padding: 15px 30px; /* Adjust padding for button size */
+    font-size: 2rem; /* Button text size */
+    color: #fff; /* Button text color */
+    background-color: #333; /* Button background color */
+    text-decoration: none; /* Remove underline from link */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.custom-btn:hover {
+    background-color: #ff00bf; /* Hover background color */
+}
