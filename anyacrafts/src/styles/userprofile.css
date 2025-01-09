@@ -1,0 +1,233 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .navbar a {
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+header .icons a {
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+header .icons .cart-count {
+    position: absolute; /* Keep absolute positioning for better alignment */
+    top: 2.0rem; /* Adjust as needed */
+    right: 6.5rem; /* Adjust for mobile positioning (this can be closer than 450px) */
+    font-size: 0.9rem; /* Slightly smaller font for larger screens than 450px */
+    margin-top: 0; /* Reset any extra margin */
+    margin-right: 0; /* Reset margin */
+    padding: 0.2rem 0.4rem; /* Smaller padding */
+    min-width: 1.4rem; /* Adjust to ensure it fits the text */
+    height: 1.3rem; /* Slightly increased height for better touch targets */
+}
+
+/* Main Section */
+main {
+    padding: 40px;
+}
+
+.account {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account h1,
+.account h2 {
+    margin-bottom: 20px;
+}
+
+.account a {
+    display: block;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.account a:hover {
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.account-details p {
+    margin-bottom: 5px;
+}
+
+.account-details a {
+    color: #007bff;
+}
+
+.newsletter {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.newsletter h2 {
+    margin-bottom: 10px;
+}
+
+.newsletter form {
+    display: flex;
+    align-items: center;
+}
+
+.newsletter input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.newsletter button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #0056b3;
+}
+
+.bottom {
+    text-align: center; /* Center align the links */
+    margin-top: 0; /* Adjust distance from footer */
+    margin-bottom: 10px; /* Remove margin-bottom to bring closer to footer */
+    padding-top: 200px;
+}
+
+.bottom a {
+    display: inline-block; /* Ensure each link is on its own line */
+    font-size: 1rem; /* Font size of 1rem */
+    color: #666; /* Gray color for the links */
+    text-decoration: none; /* Remove underline */
+    margin: 0 10px; /* Adjust margin for spacing between links */
+    padding-bottom: 10px; /* Add padding to create space between links and bottom */
+}
+
+.links {
+    text-align: center; /* Center align the links */
+}
+
+.links a {
+    margin: 0 20px; /* Adjust margin for spacing between links */
+    font-size: 1rem;
+    color: #666; /* Gray color for normal state */
+    text-decoration: none; /* Remove underline from links */
+    justify-content: center;
+}
+
+.links a:hover {
+    color: #ff00bf; /* Pink color on hover */
+}
+
+
+
+/* Footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 175px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+footer .logo {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bolder;
+   
+}
+
+footer .logo span {
+    color: var(--pink);
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+    margin-left: 50px; /* Space between paragraph and social media */
+    
+}
+
+.social-media {
+    display: flex;
+    justify-content: center; /* Center the social media icons horizontally */
+    margin-left: 1450px; /* Adjust margin if necessary */
+    margin-top: 10px; /* Adjust top margin for spacing */
+}
+
+.social-media a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.social-media a:hover {
+    color: #ff00bf;
+}
