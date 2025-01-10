@@ -76,6 +76,7 @@ html {
 }
 
 .chatbot header h2 {
+    color: white;
     font-size: 18px;
     margin: 0;
 }

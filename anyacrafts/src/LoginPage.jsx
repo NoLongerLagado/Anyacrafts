@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth, database } from './firebaseconfig';  
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";  
 import { ref, set } from "firebase/database";  
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import './styles/stylelogin.css';
 
 const LoginPage = () => {

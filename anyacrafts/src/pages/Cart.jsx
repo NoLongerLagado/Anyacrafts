@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import emailjs from 'emailjs-com';
-import '../styles/mainstyle.css';
+import emailjs from '@emailjs/browser';
+import '../styles/cart.css';
+
 
 const Cart = ({ isModalOpen, handleCloseModal, onContinueShopping }) => {
   const [cartItems, setCartItems] = useState([]);
