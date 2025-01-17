@@ -90,11 +90,10 @@ const LoginPage = () => {
 
     return (
         <div>
-            <header className="header"></header>
             <div className="background"></div>
             <div className="container">
                 <div className="content">
-                    <h2 className="logo">Anyacrafts</h2>
+                <h2 className="logo">Anyacrafts<span className="dot">.</span></h2>
                     <div className="text-sci">
                         <h2><br /><span></span></h2>
                         <p>
@@ -103,9 +102,9 @@ const LoginPage = () => {
                             elevate any occasion, reflecting our commitment.
                         </p>
                         <div className="social-icons">
-                            <a href="#"><i className='bx bxl-facebook-circle'></i></a>
-                            <a href="#"><i className='bx bxl-instagram-alt'></i></a>
-                            <a href="#"><i className='bx bxl-twitter'></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=61550571035697" target="_blank" rel="noopener noreferrer"><i className='bx bxl-facebook-circle'></i></a>
+                            <a href="https://www.instagram.com/eunyssss_?igsh=MWE4ZmJsYmttcDdjcw==" target="_blank" rel="noopener noreferrer"><i className='bx bxl-instagram-alt'></i></a>
+                            <a href="https://www.tiktok.com/@anyacrafts?_t=ZS-8t8yd45q6vo&_r=1" target="_blank" rel="noopener noreferrer"><i className='bx bxl-tiktok'></i></a>
                         </div>
                     </div>
                 </div>
@@ -170,8 +169,8 @@ const LoginPage = () => {
                 </div>
                    
                 {showTermsModal && (
-                    <div className="modal">
-                        <div className="modal-content">
+                    <div className="login-modal">
+                        <div className="login-modal-content">
                             <h3>Terms and Conditions</h3>
                             <p>lalagyan to pag meron ng terms and conditions</p>
                             <button onClick={() => setShowTermsModal(false)}>Close</button>

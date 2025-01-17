@@ -128,7 +128,7 @@ body {
 
 .content .logo {
     font-size: 30px;
-    margin-left: -600px;
+    text-align: left;
    
 }
 
@@ -159,7 +159,6 @@ body {
 }
 
 .container .logreg-box {
-    position: absolute;
     top: 0;
     right: 0;
     width: calc(100% - 58%);
@@ -204,6 +203,10 @@ body {
 .logreg-box.active .form-box.register {
     transform: translateX(0);
     transition-delay: .7s;
+}
+
+form {
+    display: block;
 }
 
 .form-box h2 {
@@ -278,6 +281,26 @@ body {
     margin-right: 5px;
 }
 
+.termscondition {
+    display: flex;
+    align-items: center;
+}
+
+.termscondition input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.termscondition label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.termscondition a {
+    margin-left: 5px; /* Adds spacing between 'terms & conditions' link and the previous text */
+}
+
+
 .login-btn {
     margin-top: 10px;
     width: 100%;
@@ -299,7 +322,7 @@ body {
     bottom: 0;
     height: 2px;
     width: 0;
-    background-color: #fb6f92;
+    background-color: #e84393;
     transition: 0.5s ease;
   }
   
@@ -319,7 +342,7 @@ body {
     bottom: 0;
     height: 0;
     width: 100%;
-    background-color: #fb6f92;
+    background-color: #e84393;
     transition: 0.4s ease;
     z-index: -1;
   }
@@ -347,38 +370,72 @@ body {
     text-decoration: underline;
 }
 
-.modal {
+button[type="submit"] {
+    color: #fff;
+}
+
+button[type="button"] {
+    background: #e299c4;
+    color: #ffffff;
+}
+
+.content .logo {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: left;
+    color: black; /* Ensures the main text is black */
+}
+
+.content .logo .dot {
+    color: #e84393; /* Changes the dot color to pink */
+    font-size: 36px; /* Matches the font size of the main text */
+    display: inline-block;
+    width: 8px; /* Adjust the width to make it square */
+    height: 45px; /* Adjust the height to make it square */
+    line-height: 1; /* Ensures the box height aligns with the text */
+    vertical-align: bottom; /* Aligns the box with the bottom of the text */
+}
+
+.login-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .modal-content {
-    background: white;
+    z-index: 1000; /* Make sure it appears on top of other elements */
+}
+
+.login-modal-content {
+    background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    width: 1000px;
-    max-width: 90%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-content h3 {
+    border-radius: 10px;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(251, 250, 250, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+.login-modal-content h3 {
     margin-top: 0;
-  }
-  
-  .modal-content button {
-    margin-top: 20px;
+}
+
+.login-modal-content button {
+    margin-top: 15px;
     padding: 10px 20px;
-    background: #ff00bf;
-    color: white;
     border: none;
+    background-color: #007bff;
+    color: white;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
+}
+
+.login-modal-content button:hover {
+    background-color: #0056b3;
+}
+
+
+ 

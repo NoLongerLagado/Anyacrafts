@@ -76,8 +76,8 @@ const Cart = ({ isModalOpen, handleCloseModal, onContinueShopping }) => {
   if (!isModalOpen) return null;
 
   return (
-    <div className="modal" id="cartModal">
-      <div className="modal-content">
+    <div className="cart-modal" id="cartModal">
+      <div className="cart-modal-content">
         <div className="form-container">
           <h2 id="checkoutHeading">Checkout Form</h2>
           <form id="checkoutForm" onSubmit={handleCheckout}>
