@@ -405,7 +405,7 @@ button[type="button"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Make sure it appears on top of other elements */
+    z-index: 1000; 
 }
 
 .login-modal-content {

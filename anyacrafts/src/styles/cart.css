@@ -155,7 +155,7 @@ button {
 .cart-count {
     position: fixed; /* Position relative to .cart-icon */
     top: -0.2rem; /* Adjust top position as needed */
-    right: -4rem; /* Adjust right position as needed */
+    right: -4rem; 
     background-color: var(--pink);
     color: #fff;
     font-size: 1rem;
