@@ -87,7 +87,7 @@ header .navbar a{
 
 header .navbar a:hover {
     color: var(--pink); /* Change color on hover */
-    text-decoration: underline; /* Optional hover effect */
+    text-decoration: underline; 
 }
 
 header .icons a{

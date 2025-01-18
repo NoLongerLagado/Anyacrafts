@@ -32,7 +32,7 @@ const LoginPage = () => {
     };
     
 
-    const sendEmail = (email, fullname) => {
+    const sendEmail = (email, fullname) => { //send email
         const serviceID = 'service_2q98lcs';
         const templateID = 'template_kld1ggr';
         const userID = 'wfeU7qRWckiwTYpcn';

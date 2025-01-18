@@ -383,7 +383,7 @@ button[type="button"] {
     font-size: 36px;
     font-weight: 700;
     text-align: left;
-    color: black; /* Ensures the main text is black */
+    color: black;
 }
 
 .content .logo .dot {
