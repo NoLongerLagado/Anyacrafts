@@ -393,7 +393,7 @@ button[type="button"] {
     width: 8px; /* Adjust the width to make it square */
     height: 45px; /* Adjust the height to make it square */
     line-height: 1; /* Ensures the box height aligns with the text */
-    vertical-align: bottom; /* Aligns the box with the bottom of the text */
+    vertical-align: bottom; 
 }
 
 .login-modal {
