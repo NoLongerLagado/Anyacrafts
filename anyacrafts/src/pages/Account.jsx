@@ -55,23 +55,27 @@ const Account = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order, index) => (
-                  <tr key={index}>
-                    <td>
-                      {order.selectedItems.map((item, idx) => (
-                        <div key={idx}>
-                          <strong>{item.title}</strong> - {item.size} - {item.color} 
-                          <br />
-                          {item.pcs} pcs - ₱{item.price}
-                        </div>
-                      ))}
-                    </td>
-                    <td>{new Date(order.orderDate.seconds * 1000).toLocaleDateString()}</td> {/* Format Firestore timestamp */}
-                    <td>{order.paymentMode}</td>
-                    <td>{`₱${order.subtotal.toFixed(2)}`}</td> {/* Display subtotal price */}
-                    <td>{order.status}</td> {/* Shipping status */}
-                  </tr>
-                ))}
+              {orders.map((order, index) => (
+  <tr key={index}>
+    <td>
+      {Array.isArray(order.selectedItems) ? (
+        order.selectedItems.map((item, idx) => (
+          <div key={idx}>
+            <strong>{item.title}</strong> - {item.size} - {item.color}
+            <br />
+            {item.pcs} pcs - ₱{item.price}
+          </div>
+        ))
+      ) : (
+        <p>No items found.</p>
+      )}
+    </td>
+    <td>{new Date(order.orderDate.seconds * 1000).toLocaleDateString()}</td> {/* Format Firestore timestamp */}
+    <td>{order.paymentMode}</td>
+    <td>{`₱${order.subtotal?.toFixed(2)}`}</td> {/* Display subtotal price */}
+    <td>{order.status}</td> {/* Shipping status */}
+  </tr>
+))}
               </tbody>
             </table>
           ) : (
