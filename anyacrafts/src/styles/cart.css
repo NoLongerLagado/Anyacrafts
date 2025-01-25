@@ -1,38 +1,17 @@
-/** ------------------------------------------ bago **/
-
-
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
 }
 
-#confirmationModal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ec78d3;
-    padding: 40px; /* Adjust the padding to increase height */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-    width: 100%;
-    text-align: center;
-}
-
-#confirmationMessage {
-    font-size: 2em;
-    color: rgb(0, 0, 0);
-    
-}
-
-
+/* Modal overlay */
 .cart-modal {
     display: flex;
     justify-content: center;
@@ -45,8 +24,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
-
+/* Modal content */
 .cart-modal-content {
     background-color: #fff;
     padding: 2rem;
@@ -64,26 +42,13 @@
     overflow-y: scroll;
 }
 
-.cart-modal-content h3 {
-    margin-top: 0;
-  }
-  
-  .cart-modal-content button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #ff00bf;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-
+/* Form container styles */
 .form-container {
     flex: 1;
     padding: 1rem;
 }
 
+/* Image container styles */
 .image-container {
     flex: 1 1 40%;
     display: flex;
@@ -92,6 +57,64 @@
     position: relative;
 }
 
+#selectedItemImage {
+    width: 100%;  /* Makes the image take the full width of its container */
+    max-width: 500px; /* Optional: you can limit the width for a more controlled size */
+    height: auto; /* Adjust height automatically to maintain aspect ratio */
+    object-fit: cover; /* Ensures the image scales properly */
+}
+/* Text styling */
+h4 {
+    font-size: 1.5rem; /* Larger font for product info heading */
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.7rem; /* Larger font for product details */
+    margin-bottom: 0.8rem;
+}
+
+/* Quantity controls */
+.quantity-controls button {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+}
+
+.quantity-controls input {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 50px;
+    padding: 0.5rem;
+}
+
+/* Buttons */
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: #ff00bf;
+    color: white;
+}
+
+button:hover {
+    background-color: #ff0066;
+}
+
+/* Overall alignment and spacing adjustments */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.cart-modal-content h3 {
+    font-size: 2rem;
+    margin-top: 0;
+    font-weight: bold;
+}
 .image-container::before {
     content: '';
     position: absolute;
@@ -101,85 +124,3 @@
     height: 100%;
     border-left: 2px solid var(--pink);
 }
-
-form {
-    display: grid;
-    gap: 1rem;
-}
-
-label {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid var(--pink);
-    border-radius: 0.3rem;
-}
-
-#selectedItemImage {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover; /* Ensure image scales properly */
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-}
-
-button {
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 0.3rem;
-}
-
-
-#checkoutHeading {
-    text-align: center;
-}
- 
-
-.cart-icon {
-    position: absolute; /* Ensure this container is positioned relative */
-}
-
-.cart-count {
-    position: fixed; 
-    top: -0.2rem; 
-    right: -4rem; 
-    background-color: var(--pink);
-    color: #fff;
-    font-size: 1rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 50%;
-    margin-top: 20px;
-    margin-right: 200px;
-    font-weight: bold;
-    display: relative;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.6rem;
-    height: 1.6rem;
-    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1);
-}
-
-
-*{
-    margin:0; padding:0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    outline: none; border: none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
-} 
-

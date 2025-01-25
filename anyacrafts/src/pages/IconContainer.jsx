@@ -10,28 +10,28 @@ const IconsContainer = () => (
     <div className="icons">
       <img src={freeD} alt="Free Delivery" />
       <div className="info">
-        <h3>free delivery</h3>
-        <span>on all orders</span>
+        <h3>Lalamove Delivery</h3>
+        <span>or pick-up</span>
       </div>
     </div>
     <div className="icons">
       <img src={money} alt="Free Delivery" />
       <div className="info">
-        <h3>10 days return</h3>
-        <span>on all orders</span>
+        <h3>No Cancellation</h3>
+        <span>of orders</span>
       </div>
     </div>
     <div className="icons">
       <img src={gift} alt="Free Delivery" />
       <div className="info">
-        <h3>offer and gifts</h3>
-        <span>on all orders</span>
+        <h3>Loyalty Card</h3>
+        <span>on first order</span>
       </div>
     </div>
     <div className="icons">
       <img src={gcash} alt="Free Delivery" />
       <div className="info">
-         <h3>secure payment</h3>
+         <h3>Secure Payment</h3>
         <span>on all orders</span>
       </div>
     </div>

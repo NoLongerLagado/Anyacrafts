@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"; // React Router's Link
 import { Link as ScrollLink } from "react-scroll"; // Alias react-scroll's Link
+import CartPage from "./CartPage";
 
 const Header = ({ user }) => {
   return (
@@ -19,9 +20,9 @@ const Header = ({ user }) => {
       </nav>
 
       <div className="icons">
-        <a href="#" id="cartIcon" className="fas fa-shopping-cart">
+        <Link to="/cart-page" id="cartIcon" className="fas fa-shopping-cart">
           <span id="cartCount" className="cart-count">0</span>
-        </a>
+        </Link>
         <Link to="/user-profile" id="userProfileButton" className="fas fa-user">
           {user && <span className="welcome-message">{user.fullName}</span>}
         </Link>

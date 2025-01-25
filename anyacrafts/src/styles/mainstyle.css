@@ -356,6 +356,20 @@ header .fa-bars{
     text-decoration: line-through;
 }
 
+.filters {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .filters select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
 
  .review .box-container{
     display: flex;
