@@ -6,6 +6,7 @@ import MainPage from "./main/MainPage";
 import LoginPage from "./LoginPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import UserProfile from "./pages/UserProfile";
+import CustomFlower from "./pages/CustomFlower"
 import { UserProvider } from "./components/UserContext";
 import CartPage from "./pages/CartPage";
 import { FireCMS } from "@firecms/core";  // Import FireCMS
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="forgot-password" element={<ForgotPassword />} /> {/* Forgot password */}
         <Route path="cart-page" element={<CartPage />} />
         <Route path="user-profile" element={<UserProfile />} /> {/* User profile */}
+        <Route path="customization" element={<CustomFlower />} />
         <Route path="admin" element={<FireCMS {...firecmsconfig} />} /> {/* Admin dashboard */}
       </Route>
     )

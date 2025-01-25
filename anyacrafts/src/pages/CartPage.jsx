@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext"; // Import the UserContext
 import { useDataSource } from "@firecms/core";
 import { db } from "../firebaseconfig.js";
 import { collection, addDoc } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
-import "../styles/cart.css";
+import "../styles/CartPage.css";
 
 const CartPage = () => {
   const { user } = useContext(UserContext); // Access user from context
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [emailError, setEmailError] = useState(false);
@@ -23,21 +24,30 @@ const CartPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
-
+  const [isVisible, setIsVisible] = useState(true);
   const dataSource = useDataSource();
 
+  // Load cart items from localStorage
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(storedCart);
-    calculateSubtotal(storedCart);
+    const updatedCart = storedCart.map((item) => ({
+      ...item,
+      quantity: item.quantity || 1,
+      totalPrice: (item.quantity || 1) * item.price,
+    }));
+    setCartItems(updatedCart);
+    calculateSubtotal(updatedCart);
   }, []);
 
+  // Recalculate subtotal when cartItems or selectedItems change
   useEffect(() => {
     calculateSubtotal(cartItems);
-  }, [cartItems]);
+  }, [cartItems, selectedItems]);
 
   const calculateSubtotal = (items) => {
-    const subtotal = items.reduce((acc, item) => acc + (item.totalPrice || item.price), 0);
+    const subtotal = items
+      .filter((item) => selectedItems.includes(item.id))
+      .reduce((acc, item) => acc + (item.totalPrice || item.price), 0);
     setSubtotal(subtotal);
   };
 
@@ -67,51 +77,80 @@ const CartPage = () => {
     }
   };
 
+  const handleQuantityChange = (index, change) => {
+    const newCartItems = [...cartItems];
+    const newQuantity = newCartItems[index].quantity + change;
+    if (newQuantity > 0) {
+      newCartItems[index].quantity = newQuantity;
+      newCartItems[index].totalPrice = newQuantity * newCartItems[index].price;
+      setCartItems(newCartItems);
+      saveCartItems(newCartItems);
+    }
+  };
+
+  const handleRemoveItem = (index) => {
+    const newCartItems = cartItems.filter((_, i) => i !== index);
+    setCartItems(newCartItems);
+    saveCartItems(newCartItems);
+  };
+
+  const saveCartItems = (items) => {
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  };
+
   const handleCheckout = async (e) => {
     e.preventDefault();
-
+  
     if (emailError) {
       setCheckoutError("Please enter a valid email address.");
       return;
     }
-
-    const selectedCartItems = cartItems.filter((item) => selectedItems.includes(item.id));
+  
+    const selectedCartItems = cartItems.filter((item) =>
+      selectedItems.includes(item.id)
+    );
     if (selectedCartItems.length === 0) {
       setCheckoutError("Please select items to checkout.");
       return;
     }
-
+  
     if (!user) {
       setCheckoutError("You must be logged in to place an order.");
       return;
     }
-
+  
     const orderData = {
       ...formData,
       subtotal,
       orderDate: new Date(),
       status: "pending",
-      selectedItems: selectedCartItems,
-      userId: user.uid, // Now using the user object from context
+      selectedItems: selectedCartItems.map((item) => item.name).join(", "), // Convert to a string
+      userId: user.uid,
     };
-
+  
     try {
       setLoading(true);
-
-      // Use Firestore SDK to add a new document
+  
+      // Save the order to Firestore
       await addDoc(collection(db, "orders"), orderData);
-
-      // Optionally, send confirmation email
+  
+      // Send a confirmation email via EmailJS
       emailjs
         .send(
-          "YOUR_SERVICE_ID",
-          "YOUR_TEMPLATE_ID",
+          "service_2q98lcs",
+          "template_9mvi7zl",
           {
-            to_name: `${formData.firstName} ${formData.lastName}`,
-            to_email: formData.email,
-            message: `Thank you for your order! Your order is now pending confirmation.`,
+            email: formData.email, // Email of the recipient
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            address: formData.address,
+            paymentMode: formData.paymentMode,
+            selectedItems: selectedCartItems.map((item) => item.name).join(", "),
+            modeOfDelivery: formData.modeOfDelivery,
+            status: "Pending",
+            orderDate: new Date().toLocaleDateString(),
           },
-          "YOUR_USER_ID"
+          "wfeU7qRWckiwTYpcn" // Your EmailJS user ID
         )
         .then(() => {
           console.log("Confirmation email sent.");
@@ -119,119 +158,184 @@ const CartPage = () => {
         .catch((error) => {
           console.error("Error sending email:", error);
         });
-
+  
       // Clear cart
       localStorage.removeItem("cartItems");
       setCartItems([]);
       setSelectedItems([]);
-
+  
       alert("Order placed successfully!");
       setLoading(false);
     } catch (error) {
       console.error("Failed to save order:", error.message);
       if (error.code === "permission-denied") {
-        setCheckoutError("You do not have permission to perform this action. Please contact support.");
+        setCheckoutError(
+          "You do not have permission to perform this action. Please contact support."
+        );
       } else {
-        setCheckoutError("There was an issue saving your order. Please try again.");
+        setCheckoutError(
+          "There was an issue saving your order. Please try again."
+        );
       }
       setLoading(false);
     }
+  };
+  
+  const renderOrderSummary = () => {
+    const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
+    if (selectedCartItems.length === 0) return <p>No items selected for checkout.</p>;
+
+    return (
+      <div>
+        <h3>Order Summary:</h3>
+        <ul>
+          {selectedCartItems.map((item, index) => (
+            <li key={index}>
+              {item.name} - ₱{item.price} x {item.quantity} = ₱{item.totalPrice}
+            </li>
+          ))}
+        </ul>
+        <h4>Total: ₱{selectedCartItems.reduce((acc, item) => acc + item.totalPrice, 0)}</h4>
+      </div>
+    );
+  };
+
+  const renderPaymentOptions = () => {
+    const options =
+      formData.modeOfDelivery === 'lalamove'
+        ? ['gcash', 'paymaya', 'bpi']
+        : ['cash-on-pickup', 'gcash', 'paypal', 'bpi']; // Updated options for pick-up
+
+    return (
+      <select
+        name="paymentMode"
+        value={formData.paymentMode}
+        onChange={handleInputChange}
+        required
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option === 'cash-on-pickup' ? 'Cash on Pick-up' : option.charAt(0).toUpperCase() + option.slice(1)}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
+  const handleSoftClose = () => {
+    window.history.back(); // Navigates to the previous page, cart items remain in localStorage
   };
 
   return (
     <div className="cart-page">
       <h1>Cart</h1>
-      <Link to="/main-page" className="close-button">
-        Close and Continue Shopping
-      </Link>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div className="cart-items">
-          {cartItems.map((item, index) => (
-            <div key={index} className="cart-item">
-              <img src={item.image} alt={item.name} />
-              <div className="item-info">
-                <h2>{item.name}</h2>
-                <p>Price: ₱{item.price}</p>
-                <p>Quantity: {item.quantity}</p>
-                <p>Total: ₱{item.totalPrice || item.price}</p>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, item.id)}
-                  checked={selectedItems.includes(item.id)}
-                />
-                <label>Select for checkout</label>
-              </div>
+      <button className="close-button" onClick={handleSoftClose}>x</button> {/* Soft close */}
+      {isVisible && (
+        <div className="cart">
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <div className="cart-items">
+              {cartItems.map((item, index) => (
+                <div key={index} className="cart-item">
+                  <div className="checkbox-container">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => handleCheckboxChange(e, item.id)}
+                      checked={selectedItems.includes(item.id)}
+                    />
+                  </div>
+                  <img src={item.image} alt={item.name} />
+                  <div className="item-info">
+                    <h2>{item.title}</h2>
+                    <p>Price: ₱{item.price}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    {/* Add subtotal for each item */}
+                    <p>Item Subtotal: ₱{(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
+                  <div className="quantity-controls">
+                    <button onClick={() => handleQuantityChange(index, -1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => handleQuantityChange(index, 1)}>+</button>
+                  </div>
+                  <button className="remove-btn" onClick={() => handleRemoveItem(index)}>Remove</button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
-      <h2>Subtotal: ₱{subtotal}</h2>
-      <form onSubmit={handleCheckout}>
-        <div className="form-group">
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            rows="4"
-            required
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={(e) => {
-              handleInputChange(e);
-              validateEmail();
-            }}
-            required
-          />
-          {emailError && <p style={{ color: "red" }}>Please enter a valid email address.</p>}
-        </div>
-        <div className="form-group">
-          <label>Mode of Delivery:</label>
-          <select
-            name="modeOfDelivery"
-            value={formData.modeOfDelivery}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="lalamove">Lalamove Delivery</option>
-            <option value="pickup">Pick-up</option>
-          </select>
-        </div>
-        <button type="submit" disabled={loading}>
+          )}
+          <h2 className="subtotal">Subtotal: ₱{subtotal}</h2>
+          {renderOrderSummary()}
+          <div className="buyer-info">
+            <h2>Buyer Information</h2>
+            <form onSubmit={handleCheckout}>
+              <div className="form-group">
+                <label>First Name:</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Last Name:</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Address:</label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    validateEmail();
+                  }}
+                  required
+                />
+                {emailError && <p style={{ color: 'red' }}>Please enter a valid email address.</p>}
+              </div>
+              <div className="form-group">
+                <label>Mode of Delivery:</label>
+                <select
+                  name="modeOfDelivery"
+                  value={formData.modeOfDelivery}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="lalamove">Lalamove</option>
+                  <option value="pick-up">Pick-up</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Payment Mode:</label>
+                {renderPaymentOptions()}
+              </div>
+              <button type="submit" disabled={loading}>
           {loading ? "Processing..." : "Checkout"}
         </button>
         {checkoutError && <p style={{ color: "red" }}>{checkoutError}</p>}
-      </form>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

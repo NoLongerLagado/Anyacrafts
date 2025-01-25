@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../styles/cart.css';
 
 const Cart = ({
@@ -8,79 +8,73 @@ const Cart = ({
   cartItems,
   setCartItems,
 }) => {
-  const [quantity, setQuantity] = useState(1);
 
-  // Reset quantity when a new product is selected
+  // Reset quantity when a new product is selected (since no quantity needed now)
   useEffect(() => {
     if (selectedProduct) {
-      setQuantity(1); // Reset quantity to 1 when a new product is selected
+      // Do nothing as quantity is removed
     }
   }, [selectedProduct]);
 
-  const handleQuantityChange = (amount) => {
-    setQuantity((prevQuantity) => Math.max(1, prevQuantity + amount)); // Ensure quantity is at least 1
-  };
-
-  const addToCart = (item, quantity) => {
+  const addToCart = (item) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(
         (cartItem) => cartItem.id === item.id
       );
-  
+
       if (existingItemIndex > -1) {
-        // Item already exists, update it
         const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += quantity;
+        updatedItems[existingItemIndex].quantity += 1; // Increase by 1 if already in the cart
         updatedItems[existingItemIndex].totalPrice =
-          updatedItems[existingItemIndex].price * updatedItems[existingItemIndex].quantity;
+          updatedItems[existingItemIndex].price *
+          updatedItems[existingItemIndex].quantity;
         return updatedItems;
       }
-  
-      // New item, add it to the cart
+
       return [
         ...prevItems,
-        { ...item, quantity, totalPrice: item.price * quantity },
+        { ...item, quantity: 1, totalPrice: item.price * 1 }, // default quantity of 1
       ];
     });
   };
 
   const handleAddToCart = () => {
     if (selectedProduct) {
-      addToCart(selectedProduct, quantity);
-      handleCloseModal(); // Close modal after adding to cart
+      addToCart(selectedProduct);
+      handleCloseModal();
     }
   };
 
-  // Return null if the modal is not open or if no product is selected
+  const handleCancel = () => {
+    handleCloseModal();
+  };
+
   if (!isModalOpen || !selectedProduct) return null;
 
-  const totalPrice = (selectedProduct.price * quantity).toFixed(2);
+  const totalPrice = (selectedProduct.price * 1).toFixed(2); // Default quantity 1
 
   return (
-    <div className="cart-modal" id="cartModal">
+    <div className="cart-modal">
       <div className="cart-modal-content">
         <div className="form-container">
-          <h2 id="productInfoHeading">Product Information</h2>
+          <h2>Product Information</h2>
           <div id="selectedItemDetails">
             <p><strong>Name:</strong> {selectedProduct.title}</p>
             <p><strong>Pieces:</strong> {selectedProduct.pcs}</p>
             <p><strong>Color:</strong> {selectedProduct.color}</p>
             <p><strong>Size:</strong> {selectedProduct.size}</p>
-            <p><strong>Material:</strong> {selectedProduct.material}</p>
             <p><strong>Price:</strong> ₱{selectedProduct.price.toFixed(2)}</p>
+            <p><strong>Material:</strong> {selectedProduct.material}</p>
+            <p><strong>Addons:</strong> {selectedProduct.addons}</p>
             <p><strong>Total:</strong> ₱{totalPrice}</p>
           </div>
-          <div className="quantity-controls">
-            <button type="button" onClick={() => handleQuantityChange(-1)}>-</button>
-            <input type="text" value={quantity} readOnly className="quantity-input" />
-            <button type="button" onClick={() => handleQuantityChange(1)}>+</button>
-          </div>
           <div className="buttons">
-            <button type="button" onClick={handleAddToCart}>Confirm Add</button>
+            <button onClick={handleAddToCart}>Confirm Adding to Cart</button>
+            <button onClick={handleCancel}>Cancel</button>
           </div>
         </div>
         <div className="image-container">
-          <img id="selectedItemImage" src={selectedProduct.image} alt={selectedProduct.title} />
+          <img src={selectedProduct.image} alt={selectedProduct.title} />
         </div>
       </div>
     </div>

@@ -21,7 +21,6 @@ const Header = ({ user }) => {
 
       <div className="icons">
         <Link to="/cart-page" id="cartIcon" className="fas fa-shopping-cart">
-          <span id="cartCount" className="cart-count">0</span>
         </Link>
         <Link to="/user-profile" id="userProfileButton" className="fas fa-user">
           {user && <span className="welcome-message">{user.fullName}</span>}

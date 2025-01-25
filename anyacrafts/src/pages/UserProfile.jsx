@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { UserContext } from "../components/UserContext";
 import Header from "../pages/Header";
 import Account from "../pages/Account";
-import Newsletter from "../pages/Newsletter";
 import Footer from "../pages/Footer";
 import "../styles/userprofile.css";
 
@@ -19,7 +18,6 @@ const UserProfile = () => {
         ) : (
           <p>Please sign in to view your account.</p>
         )}
-        <Newsletter />
         <div className="bottom">
       <a href="#home">home</a>
       <a href="#about">about</a>
