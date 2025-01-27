@@ -34,7 +34,7 @@ const Account = () => {
   return (
     <div className="account">
       <h1>Account</h1>
-      <h2>{user ? `Welcome, ${user.displayName}` : 'Welcome!'}</h2>
+      <h2>{user ? `Welcome, ${user.email}` : 'Welcome!'}</h2>
       {user ? (
         <button onClick={signOut}>Sign Out</button>
       ) : (
