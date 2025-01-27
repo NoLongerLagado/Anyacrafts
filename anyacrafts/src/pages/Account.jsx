@@ -28,12 +28,13 @@ const Account = () => {
       // Cleanup listener on component unmount
       return () => unsubscribe();
     }
+    console.log('User context:', user);
   }, [user]); // Only re-run when the user changes
 
   return (
     <div className="account">
       <h1>Account</h1>
-      <h2>{user ? `Welcome, ${user.firstName} ${user.lastName}` : 'Welcome!'}</h2>
+      <h2>{user ? `Welcome, ${user.displayName}` : 'Welcome!'}</h2>
       {user ? (
         <button onClick={signOut}>Sign Out</button>
       ) : (
