@@ -118,16 +118,33 @@ const CartPage = () => {
       setCheckoutError("You must be logged in to place an order.");
       return;
     }
+
+    const selectedItemsDetails = selectedCartItems
+    .map(
+      (item) =>
+        `${item.title} - Quantity: ${item.quantity}, Price: ₱${item.price}, Total: ₱${item.totalPrice}`
+    )
+    .join("\n");
+
+    console.log("Selected Items Details:", selectedItemsDetails);
   
     const orderData = {
       ...formData,
       subtotal,
       orderDate: new Date(),
       status: "pending",
-      selectedItems: selectedCartItems.map((item) => item.name).join(", "), // Convert to a string
+      selectedItems: selectedCartItems.map((item) => ({
+        id: item.id,
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price,
+        totalPrice: item.totalPrice,
+      })), // Save as an array of objects// Convert to a string
       userId: user.uid,
     };
   
+    console.log("Order Data:", orderData); 
+
     try {
       setLoading(true);
   
@@ -145,7 +162,7 @@ const CartPage = () => {
             lastName: formData.lastName,
             address: formData.address,
             paymentMode: formData.paymentMode,
-            selectedItems: selectedCartItems.map((item) => item.name).join(", "),
+            selectedItems: selectedItemsDetails,
             modeOfDelivery: formData.modeOfDelivery,
             status: "Pending",
             orderDate: new Date().toLocaleDateString(),
@@ -191,7 +208,7 @@ const CartPage = () => {
         <ul>
           {selectedCartItems.map((item, index) => (
             <li key={index}>
-              {item.name} - ₱{item.price} x {item.quantity} = ₱{item.totalPrice}
+              {item.title} - ₱{item.price} x {item.quantity} = ₱{item.totalPrice}
             </li>
           ))}
         </ul>
@@ -245,7 +262,7 @@ const CartPage = () => {
                       checked={selectedItems.includes(item.id)}
                     />
                   </div>
-                  <img src={item.image} alt={item.name} />
+                  <img src={item.image} alt={item.title} />
                   <div className="item-info">
                     <h2>{item.title}</h2>
                     <p>Price: ₱{item.price}</p>

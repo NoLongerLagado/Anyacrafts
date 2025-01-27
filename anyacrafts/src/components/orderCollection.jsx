@@ -75,7 +75,7 @@ export const ordersCollection = buildCollection({
               title: "Product ID",
               dataType: "string",
             },
-            name: {
+            title: {
               title: "Product Name",
               dataType: "string",
             },

@@ -63,7 +63,7 @@ const Account = () => {
           <div key={idx}>
             <strong>{item.title}</strong> - {item.size} - {item.color}
             <br />
-            {item.pcs} pcs - ₱{item.price}
+            {item.quantity} pcs - ₱{item.price}
           </div>
         ))
       ) : (

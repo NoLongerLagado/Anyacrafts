@@ -116,7 +116,6 @@ const Products = () => {
   };
   
   const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
     setSelectedProduct(product);
     setShowCart(true);
   };

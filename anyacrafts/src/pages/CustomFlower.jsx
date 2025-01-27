@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import html2canvas from "html2canvas"; // Import html2canvas
 import wrap1 from '../assets/wrap1.png';
 import wrap2 from '../assets/wrap2.png';
 import wrap3 from '../assets/wrap3.png';
@@ -90,6 +92,7 @@ const Customization = () => {
   const [movedImages, setMovedImages] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("");
   const [displaySecondDropdown, setDisplaySecondDropdown] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(true); 
 
   const updatePriceDisplay = () => `₱${totalPrice.toFixed(2)}`;
 
@@ -97,6 +100,7 @@ const Customization = () => {
     setSelectedOption(option);
     setTotalPrice(price);
     setDisplaySecondDropdown(true);
+    setTitleVisible(false);
   };
 
   const handleBack = () => {
@@ -105,6 +109,7 @@ const Customization = () => {
     setDisplaySecondDropdown(false);
     setCurrentCategory("");
     setMovedImages([]);
+    setTitleVisible(true);
   };
 
   const handleClear = () => {
@@ -161,9 +166,54 @@ const Customization = () => {
     // Navigate to the Home page
     navigate("/main-page"); // Redirects to the home page
   };
+
+  const handleScreenshot = async () => {
+  const displayArea = document.getElementById("display-area");
+
+  // Ensure the display area exists
+  if (displayArea) {
+    // Wait for images to load if necessary
+    const images = displayArea.querySelectorAll('img');
+    const imagePromises = Array.from(images).map((img) => {
+      return new Promise((resolve) => {
+        if (img.complete) {
+          resolve();
+        } else {
+          img.onload = resolve;
+        }
+      });
+    });
+
+    // Wait for all images to load
+    await Promise.all(imagePromises);
+
+    // Capture the screenshot
+    const canvas = await html2canvas(displayArea, {
+      useCORS: true, // This might be helpful for cross-origin images
+      logging: true,  // Enable logging to debug
+      scrollX: 0, // Disable scrolling for smoother capture
+      scrollY: -window.scrollY, // Capture relative to current viewport
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = imgData;
+    link.download = "screenshot.png";
+    link.click();
+  }
+};
+
   
   return (
+    
     <div>
+      {/* Conditionally display the title */}
+      {titleVisible && (
+        <div class="customization-title">
+        <span class="line-one">Customize Your</span>
+        <span class="line-two">Own Bouquet</span>
+      </div>
+      )}
       <div className="shadowbox">
         <div className="shadowbox-title">{currentCategory}</div>
         {currentCategory &&
@@ -185,16 +235,16 @@ const Customization = () => {
           onDrop={handleDrop}
           onDragOver={allowDrop}
           style={{
-            width: "500px",
-            height: "500px",
+            width: "700px",
+            height: "1000px",
             position: "absolute",
-            top: "50%",
+            top: "55%",
             right: "10%",
             transform: "translateY(-50%)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            overflow: "hidden",
+            overflow: "visible",
           }}
         >
           {Array.from(movedImages).map((imgSrc, index) => (
@@ -218,8 +268,9 @@ const Customization = () => {
 
       {selectedOption && (
         <div className="price-display">
-          Total Price: <span>{updatePriceDisplay()}</span>
-        </div>
+        <span>Total Price:</span>
+        <span className="price-value">{updatePriceDisplay()}</span>
+      </div>
       )}
       
 
@@ -251,14 +302,17 @@ const Customization = () => {
           <div className="button-container1">
             <button className="dropbtn">Hover to Show Menu</button>
             <button className="undo-btn" onClick={handleUndo}>
-              Undo
+              Undo last elements
             </button>
             <button className="clear-btn" onClick={handleClear}>
-              Clear
+              Clear all elements
             </button>
             <button className="dropbtn-back" onClick={handleBack}>
-              Back
+              Back to no. of flowers
             </button>
+            <button onClick={handleScreenshot} className="screenshot-btn">
+          Take Screenshot
+        </button>
           </div>
           <div className="dropdown-content">
             {Object.keys(imageSets[selectedOption]).map((category) => (

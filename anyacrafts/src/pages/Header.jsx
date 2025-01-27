@@ -16,7 +16,6 @@ const Header = ({ user }) => {
         <ScrollLink to="about" smooth={true} duration={250}>About</ScrollLink>
         <ScrollLink to="products" smooth={true} duration={250}>Products</ScrollLink>
         <ScrollLink to="custom-button-section" smooth={true} duration={250}>Customization</ScrollLink>
-        <ScrollLink to="review" smooth={true} duration={250}>Review</ScrollLink>
       </nav>
 
       <div className="icons">
