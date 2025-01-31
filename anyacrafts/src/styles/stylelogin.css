@@ -24,72 +24,6 @@ body {
     z-index: 100;
 }
 
-/* .navbar a {
-    position: relative;
-    font-size: 16px;
-    color: #020310;
-    text-decoration: none;
-    font-weight: 500;
-    margin-right: 30px;
-}
-
-.navbar a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: #020310;
-    border-radius: 5px;
-    transform: translateY(10px);
-    opacity: 0;
-    transition: .5s;
-}
-
-.navbar a:hover::after {
-    transform: translateY(0);
-} */
-
-/* .search-bar {
-    width: 250px;
-    height: 45px;
-    background: transparent;
-    border: 2px solid #020310;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-}
-
-.search-bar input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #020310;
-    padding-left: 10px;
-}
-
-.search-bar input::placeholder {
-    color: #020310;
-}
-
-.search-bar button {
-    width: 40px;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.search-bar button i {
-    font-size: 22px;
-    color: #020310;
-} */
 
 .background {
     width: 100%;
@@ -98,6 +32,7 @@ body {
     background-size: cover;
     background-position: center;
     filter: blur(10px);
+    position: fixed;
 }
 
 .container {
@@ -114,6 +49,15 @@ body {
     display: flex;
     align-items: center; 
 }
+
+.terms-text {
+    text-align: justify; /* Use 'left' for left alignment */
+    line-height: 1.6;
+    font-size: 14px;
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding-right: 10px; /* Prevents text from getting cut off */
+  }
 
 
 .container .content {
@@ -437,5 +381,199 @@ button[type="button"] {
     background-color: #0056b3;
 }
 
+@media screen and (max-width: 1024px) {
+    .header {
+        padding: 20px 5%;
+    }
+    
+    .container {
+        width: 85%;
+        height: auto;
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .container .content {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .logreg-box {
+        width: 100%;
+        height: auto;
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    .logreg-box .form-box {
+        width: 100%;
+        max-width: 350px;
+        padding: 30px;
+    }
+
+    .login-modal-content {
+        width: 90%;
+    }
+}
+
+/* Small Screens (Mobile) */
+@media screen and (max-width: 768px) {
+
+    .header {
+        padding: 15px 5%;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .container {
+        width: 90%;
+        height: auto;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .container .content {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .text-sci h2 {
+        font-size: 28px;
+    }
+
+    .text-sci p {
+        font-size: 14px;
+    }
+
+    .logreg-box {
+        display: flex;
+        justify-content: center;  /* Centers horizontally */
+        align-items: center;  /* Centers vertically */
+        height: 100%;  /* Ensure it takes the full height of the parent container */
+        
+    }
+
+    .logreg-box .form-box {
+        width: 100%;
+        max-width: 280px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 90%;
+    }
+
+    .input-box {
+        margin: 15px 0;
+    }
+
+    .login-modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .login-btn {
+        font-size: 14px;
+        padding: 0.8em 1.2em;
+    }
+}
+
+/* Extra Small Screens */
+@media screen and (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        height: 50%;
+        padding: 15px;
+        top: 30%
+    }
+
+    .content .logo {
+        font-size: 24px;
+        
+    }
+
+    .text-sci h2 {
+        font-size: 24px;
+    }
+
+    .text-sci p {
+        font-size: 13px;
+    }
+
+    .logreg-box {
+        display: flex;
+        justify-content: center;  /* Centers horizontally */
+        align-items: center;  /* Centers vertically */
+        height: 100%;  /* Ensure it takes the full height of the parent container */
+        
+    }
+
+    .logreg-box .form-box {
+        width: 100%;
+        max-width: 280px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 90%;
+    }
+
+    .logreg-box.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Ensure full viewport height */
+    }
+    
+    .logreg-box.active .form-box.register {
+        width: 100%;
+        max-width: 280px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 140%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Better visibility */
+    }
+    
+    .logreg-box.active .form-box.register #sign-up-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .logreg-box.active .form-box.register #sign-up-form h2 {
+        margin-bottom: -30px; /* Ensures spacing below Sign Up title */
+        font-size: 32px;
+    }
+
+    .input-box {
+        margin: 10px 0;
+    }
+
+    .login-btn {
+        font-size: 13px;
+        padding: 0.7em 1em;
+    }
+
+    .login-modal-content {
+        width: 95%;
+        padding: 10px;
+    }
+}
 
  

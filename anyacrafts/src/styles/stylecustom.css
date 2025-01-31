@@ -87,6 +87,15 @@
     cursor: pointer;
 }
 
+.button-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns buttons to the left */
+    align-items: center; /* Ensures vertical alignment */
+    gap: 15px; /* Adds space between the buttons */
+    margin-top: 15px; /* Adds spacing from the top */
+    left: 10%;
+}
+
 .button-container1 {
     display: flex;
     justify-content: center; /* Align buttons in the center */
@@ -114,7 +123,7 @@
     top: 5%;
     left: -20%;
     position: absolute;
-    padding-left: 30%;
+    padding-left: 25%;
     z-index: 4; 
 }
 
@@ -122,6 +131,20 @@
     display: block;
 }
 
+.home-button {
+    background-color: #ff72c2;
+    color: white;
+    margin-left: 3px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .home-button:hover {
+    background-color: #ef35ab;
+  }
 
 
 .firstDropdown {
@@ -286,3 +309,5 @@
     margin-left: 10px; /* Add spacing between the label and the value */
     color: #e63946; /* Highlight the price value */
   }
+
+  

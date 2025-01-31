@@ -92,16 +92,19 @@ const Products = () => {
   const [showCart, setShowCart] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({
+
     color: "All",
     price: "All",
     pcs: "All",
     type: "All",
     size: "All"
   });
-
+ 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
+
+  const sortedProducts = products.sort((a, b) => a.price - b.price);
 
    // Function to handle opening the modal and setting the selected product
    const handleOpenModal = (product) => {
@@ -158,14 +161,35 @@ const Products = () => {
 
     return matchesColor && matchesPrice && matchesPcs && matchesType && matchesSize;
   });
+  
 
   return (
     <section className="products" id="products">
       <h1 className="heading"><span>Products</span></h1>
-
+  
+      {/* Clear All Filters Button */}
+      <button
+        className="clear-filters-button"
+        onClick={() => {
+          setFilters({
+            type: "All",
+            color: "All",
+            price: "All",
+            pcs: "All",
+            size: "All",
+          });
+        }}
+      >
+        Clear All Filters
+      </button>
+  
       {/* Filters */}
       <div className="filters">
-        <select onChange={(e) => handleFilterChange('type', e.target.value)}>
+        {/* Type Filter */}
+        <select 
+          value={filters.type} 
+          onChange={(e) => handleFilterChange('type', e.target.value)}
+        >
           <option value="All">All Types</option>
           <option value="Sunflower">Sunflower</option>
           <option value="Rose">Rose</option>
@@ -174,51 +198,78 @@ const Products = () => {
           <option value="Mixed">Mixed</option>
           <option value="Money">Money</option>
         </select>
-        <select onChange={(e) => handleFilterChange('color', e.target.value)}>
+  
+        {/* Color Filter */}
+        <select 
+          value={filters.color} 
+          onChange={(e) => handleFilterChange('color', e.target.value)}
+        >
           <option value="All">All Colors</option>
-          {colorOptions.map((color) => (
+          {colorOptions.filter((color) => color !== "All").map((color) => (
             <option key={color} value={color}>{color}</option>
           ))}
         </select>
-        <select onChange={(e) => handleFilterChange('price', e.target.value)}>
+  
+        {/* Price Filter */}
+        <select 
+          value={filters.price} 
+          onChange={(e) => handleFilterChange('price', e.target.value)}
+        >
           <option value="All">All Prices</option>
           <option value="Low">Low (≤ ₱300)</option>
           <option value="Medium">Medium (₱301-₱700)</option>
           <option value="High">High ({">"} ₱701)</option>
         </select>
+  
+        {/* Pieces Filter */}
         {filters.type !== "Mixed" && (
-          <select onChange={(e) => handleFilterChange('pcs', e.target.value)}>
+          <select 
+            value={filters.pcs} 
+            onChange={(e) => handleFilterChange('pcs', e.target.value)}
+          >
             <option value="All">All Pieces</option>
-            {pcsOptions.map((pcs) => (
+            {pcsOptions.filter((pcs) => pcs !== "All").map((pcs) => (
               <option key={pcs} value={pcs}>{pcs} PCS</option>
             ))}
           </select>
         )}
-        <select onChange={(e) => handleFilterChange('size', e.target.value)}>
+  
+        {/* Size Filter */}
+        <select 
+          value={filters.size} 
+          onChange={(e) => handleFilterChange('size', e.target.value)}
+        >
           <option value="All">All Sizes</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
           <option value="Large">Large</option>
         </select>
       </div>
+  
 
-      {/* Product List */}
-      <div className="box-container">
-        {filteredProducts.map((product) => (
-          <div className="box" key={product.id}>
-            <div className="image">
-              <img src={product.image} alt={product.title} />
-              <div className="icons">
-                <button className="cart-btn" onClick={() => addToCart(product)}>Add to Cart</button>
-              </div>
-            </div>
-            <div className="content">
-              <h3>{product.title}</h3>
-              <div className="price">₱{product.price}</div>
+      
+  {/* Product List */}
+  <div className="box-container">
+    {filteredProducts.length === 0 && (filters.type !== "All" || filters.color !== "All" || filters.price !== "All" || filters.pcs !== "All" || filters.size !== "All") ? (
+      <p style={{ textAlign: "center", width: "100%", fontSize: "1.5rem", color: "gray" }}>No product available in this category.</p>
+    ) : (
+      filteredProducts.map((product) => (
+        <div className="box" key={product.id}>
+          <div className="image">
+            <img src={product.image} alt={product.title} />
+            <div className="icons">
+              <button className="cart-btn" onClick={() => addToCart(product)}>Add to Cart</button>
             </div>
           </div>
-        ))}
-      </div>
+          <div className="content">
+            <h3>{product.title}</h3>
+            <div className="price">₱{product.price}</div>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+
 
       {showCart && (
         <Cart
@@ -233,4 +284,6 @@ const Products = () => {
   );
 };
 
+
 export default Products;
+

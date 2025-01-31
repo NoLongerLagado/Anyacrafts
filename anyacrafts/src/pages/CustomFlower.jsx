@@ -277,8 +277,10 @@ const Customization = () => {
       {!displaySecondDropdown && (
         <div className="dropdown-flowers">
           <div className="button-container">
-            <button className="dropbtn">No. of Flowers</button>
-            <button className="close-btn" onClick={closeCustomization}>X</button>
+            <button className="dropbtn-flowers">No. of Flowers</button>
+            <button className="home-button" onClick={closeCustomization}>
+            Home
+          </button>
           </div>
           <div className="dropdown-content">
             {["option1", "option3", "option6"].map((option, index) => (

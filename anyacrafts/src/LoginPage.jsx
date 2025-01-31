@@ -169,15 +169,42 @@ const LoginPage = () => {
                 </div>
                    
                 {showTermsModal && (
-                    <div className="login-modal">
-                        <div className="login-modal-content">
-                            <h3>Terms and Conditions</h3>
-                            <p>lalagyan to pag meron ng terms and conditions</p>
-                            <button onClick={() => setShowTermsModal(false)}>Close</button>
-                        </div>
-                    </div>
-                )}
-                
+  <div className="login-modal">
+    <div className="login-modal-content">
+      <h3>Terms and Conditions</h3>
+      <p className="terms-text">
+        Welcome to Anyacrafts! By using our website, you agree to the following terms and conditions. 
+        Please read them carefully before placing an order or browsing our site.
+        <br /><br />
+        <strong>1. Orders and Payments</strong><br />
+        - Full payment is required before delivery.<br />
+        - Payments can be made via GCash, BPI bank transfer, or PayPal for deliveries. For pickups, cash payments are accepted.<br />
+        - Cancellation of confirmed orders is not allowed after checkout.<br /><br />
+
+        <strong>2. Customization and Delivery</strong><br />
+        - Custom bouquet requests should be sent via email or through our social media accounts.<br />
+        - Delivery fees apply depending on the location.<br />
+        - Pickup schedules must be confirmed and privately arranged.<br /><br />
+
+        <strong>3. Returns and Refunds</strong><br />
+        - Returns are not accepted for handmade bouquets and customized products.<br />
+        - Claims for damages must be reported within 24 hours of receiving the item, along with photo proof.<br /><br />
+
+        <strong>4. Privacy Policy</strong><br />
+        - Any personal information collected during orders will be used solely for processing and fulfilling orders.<br /><br />
+
+        <strong>5. Intellectual Property</strong><br />
+        - All content, including images and designs, on this website is the property of Anyacrafts. Reproduction or unauthorized use is prohibited.<br /><br />
+
+        <strong>6. Changes to Terms</strong><br />
+        - Anyacrafts reserves the right to modify these terms without prior notice.<br /><br />
+
+        For questions or concerns, please contact us through our official communication channels on Facebook, TikTok, email, or Instagram.
+      </p>
+      <button onClick={() => setShowTermsModal(false)}>Close</button>
+    </div>
+  </div>
+)}
             </div>
 
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />

@@ -13,18 +13,21 @@ const Account = () => {
     if (user) {
       const ordersRef = collection(db, 'orders'); // Reference to the 'orders' collection
       const q = query(ordersRef, where('userId', '==', user.uid)); // Query to get orders for the current user
-
+  
       // Real-time listener to fetch and update orders
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         if (querySnapshot.empty) {
           console.log('No orders found for this user.');
         } else {
-          const fetchedOrders = querySnapshot.docs.map(doc => doc.data());
-          console.log('Fetched orders:', fetchedOrders);  // Debug log to check the fetched data
-          setOrders(fetchedOrders);  // Update state with the fetched orders
+          const fetchedOrders = querySnapshot.docs
+            .map(doc => doc.data())
+            .sort((a, b) => b.orderDate.seconds - a.orderDate.seconds); // Sort by date (latest first)
+  
+          console.log('Fetched orders:', fetchedOrders); // Debug log to check the fetched data
+          setOrders(fetchedOrders); // Update state with the sorted orders
         }
       });
-
+  
       // Cleanup listener on component unmount
       return () => unsubscribe();
     }

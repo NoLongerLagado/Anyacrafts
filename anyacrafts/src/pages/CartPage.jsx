@@ -119,13 +119,18 @@ const CartPage = () => {
       return;
     }
 
+    if (formData.modeOfDelivery !== "pickup" && !formData.address) {
+      setCheckoutError("Please enter a delivery address.");
+      return;
+    }
+  
     const selectedItemsDetails = selectedCartItems
-    .map(
-      (item) =>
-        `${item.title} - Quantity: ${item.quantity}, Price: ₱${item.price}, Total: ₱${item.totalPrice}`
-    )
-    .join("\n");
-
+      .map(
+        (item) =>
+          `${item.title} - Quantity: ${item.quantity}, Price: ₱${item.price}, Total: ₱${item.totalPrice}`
+      )
+      .join("\n");
+  
     console.log("Selected Items Details:", selectedItemsDetails);
   
     const orderData = {
@@ -139,42 +144,53 @@ const CartPage = () => {
         quantity: item.quantity,
         price: item.price,
         totalPrice: item.totalPrice,
-      })), // Save as an array of objects// Convert to a string
+      })),
       userId: user.uid,
     };
   
-    console.log("Order Data:", orderData); 
-
+    console.log("Order Data:", orderData);
+  
     try {
       setLoading(true);
   
       // Save the order to Firestore
       await addDoc(collection(db, "orders"), orderData);
   
+      // Mapping of payment modes to their corresponding EmailJS configurations
+      const emailConfigs = {
+        gcash: { template: "template_9mvi7zl", service: "service_2q98lcs", key: "wfeU7qRWckiwTYpcn" },
+        bpi: { template: "template_r6dmiwt", service: "service_tq1zeg9", key: "6p6Qbw63G-IxYR9cy" },
+        paypal: { template: "template_r131ard", service: "service_tq1zeg9", key: "6p6Qbw63G-IxYR9cy" },
+        "cashonpickup": { template: "template_519z7ce", service: "service_cacixtw", key: "IfCQ4IXwMy3zgyZEl"},
+      };
+  
+      const paymentConfig = emailConfigs[formData.paymentMode];
+  
+      if (!paymentConfig) {
+        setCheckoutError("Invalid payment mode selected.");
+        setLoading(false);
+        return;
+      }
+  
       // Send a confirmation email via EmailJS
-      emailjs
-        .send(
-          "service_2q98lcs",
-          "template_9mvi7zl",
-          {
-            email: formData.email, // Email of the recipient
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            address: formData.address,
-            paymentMode: formData.paymentMode,
-            selectedItems: selectedItemsDetails,
-            modeOfDelivery: formData.modeOfDelivery,
-            status: "Pending",
-            orderDate: new Date().toLocaleDateString(),
-          },
-          "wfeU7qRWckiwTYpcn" // Your EmailJS user ID
-        )
-        .then(() => {
-          console.log("Confirmation email sent.");
-        })
-        .catch((error) => {
-          console.error("Error sending email:", error);
-        });
+      await emailjs.send(
+        paymentConfig.service,
+        paymentConfig.template,
+        {
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          address: formData.address,
+          paymentMode: formData.paymentMode,
+          selectedItems: selectedItemsDetails,
+          modeOfDelivery: formData.modeOfDelivery,
+          status: "Pending",
+          orderDate: new Date().toLocaleDateString(),
+        },
+        paymentConfig.key
+      );
+  
+      console.log("Confirmation email sent.");
   
       // Clear cart
       localStorage.removeItem("cartItems");
@@ -185,18 +201,11 @@ const CartPage = () => {
       setLoading(false);
     } catch (error) {
       console.error("Failed to save order:", error.message);
-      if (error.code === "permission-denied") {
-        setCheckoutError(
-          "You do not have permission to perform this action. Please contact support."
-        );
-      } else {
-        setCheckoutError(
-          "There was an issue saving your order. Please try again."
-        );
-      }
+      setCheckoutError("There was an issue saving your order. Please try again.");
       setLoading(false);
     }
   };
+  
   
   const renderOrderSummary = () => {
     const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
