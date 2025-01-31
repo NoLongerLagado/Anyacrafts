@@ -19,7 +19,7 @@ const CartPage = () => {
     lastName: "",
     address: "",
     email: "",
-    modeOfDelivery: "lalamove",
+    modeOfDelivery: "",
     paymentMode: "",
   });
   const [loading, setLoading] = useState(false);
@@ -229,7 +229,7 @@ const CartPage = () => {
   const renderPaymentOptions = () => {
     const options =
       formData.modeOfDelivery === 'lalamove'
-        ? ['gcash', 'paymaya', 'bpi']
+        ? ['gcash', 'paypal', 'bpi']
         : ['cash-on-pickup', 'gcash', 'paypal', 'bpi']; // Updated options for pick-up
 
     return (
