@@ -20,7 +20,7 @@ const CartPage = () => {
     address: "",
     email: "",
     modeOfDelivery: "lalamove",
-    paymentMode: "gcash",
+    paymentMode: "",
   });
   const [loading, setLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
