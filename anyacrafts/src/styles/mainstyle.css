@@ -16,6 +16,11 @@
     transition: 0.2s linear;
 }
 
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 html {
     font-size: 62.5%;
     scroll-behavior: smooth;
@@ -555,6 +560,11 @@ border-color: var(--pink);
     .home .content span{
         font-size: 2.5rem;
     }
+
+    .filters {
+        display: block;
+    }
+    
 }
 
 @media (max-width:450px){
@@ -576,6 +586,10 @@ border-color: var(--pink);
         padding: 0.2rem 0.4rem; /* Smaller padding */
         min-width: 1.2rem;
         height: 1.2rem;
+    }
+
+    .filters {
+        display: block;
     }
     
 }
