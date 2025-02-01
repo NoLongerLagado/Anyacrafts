@@ -284,3 +284,39 @@ footer p {
         font-size: 0.9rem;
     }
 }
+
+@media screen and (max-width: 450px) {
+    main {
+        padding: 15px;
+    }
+
+    .account {
+        padding: 20px;
+    }
+
+    .bottom {
+        flex-direction: column;
+        padding-top: 50px;
+    }
+
+    .bottom a {
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+    }
+
+    .links {
+        font-size: 0.85rem;
+    }
+
+    footer {
+        padding: 15px;
+    }
+
+    .social-media a {
+        font-size: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+}
